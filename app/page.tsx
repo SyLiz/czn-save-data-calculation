@@ -131,8 +131,8 @@ export default function Home() {
       { ...initialCombatantData },
     ]);
     setExpandedCombatants([true, false, false]);
-    setCombatantNames(["Combatant 1", "Combatant 2", "Combatant 3"]);
     setEditingName(null);
+    // Note: Combatant names are preserved
   };
 
   return (
