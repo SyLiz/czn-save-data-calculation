@@ -149,40 +149,6 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
         
-        {/* Results Card - Top */}
-        <div className={`gaming-card rounded-xl p-6 mb-6 ${isOverLimit ? 'border-2' : ''}`}
-             style={isOverLimit ? { borderColor: 'var(--error)' } : {}}>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="text-center">
-              <div className="text-sm text-[var(--foreground-secondary)] mb-1">Point Limit (Tier {saveDataTier})</div>
-              <div className="text-4xl font-bold" style={{ color: 'var(--accent-cyan)' }}>
-                {pointLimit}
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-sm text-[var(--foreground-secondary)] mb-1">Faint Memory Points</div>
-              <div className={`text-4xl font-bold ${isOverLimit ? 'text-glow-pink' : 'text-glow-purple'}`}
-                   style={{ color: isOverLimit ? 'var(--error)' : 'var(--accent-purple)' }}>
-                {totalPoints}
-              </div>
-            </div>
-            <div className="text-center">
-              <div className="text-sm text-[var(--foreground-secondary)] mb-1">Remaining</div>
-              <div className={`text-4xl font-bold ${isOverLimit ? 'text-glow-pink' : ''}`}
-                   style={{ color: isOverLimit ? 'var(--error)' : 'var(--accent-green)' }}>
-                {pointLimit - totalPoints}
-              </div>
-            </div>
-          </div>
-          {isOverLimit && (
-            <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: 'rgba(255, 0, 85, 0.1)', border: '1px solid var(--error)' }}>
-              <p className="text-center text-sm" style={{ color: 'var(--error)' }}>
-                ⚠️ Over limit! Random Faint Memory additions will be reverted until under the cap.
-              </p>
-            </div>
-          )}
-        </div>
-
         {/* Global Settings */}
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Tier Input */}
@@ -236,11 +202,15 @@ export default function Home() {
             const combatant = combatants[index];
             const isExpanded = expandedCombatants[index];
             const combatantPoints = calculateCombatantPoints(combatant);
+            const isOverLimit = combatantPoints > pointLimit;
+            const displayName = combatantNames[index] === `Combatant ${index + 1}` ? `Combatant ${index + 1}` : combatantNames[index];
             
             return (
-              <div key={index} className="gaming-card rounded-xl overflow-hidden">
+              <div key={index} className={`gaming-card rounded-xl overflow-hidden ${isOverLimit ? 'border-2' : ''}`}
+                   style={isOverLimit ? { borderColor: 'var(--error)' } : {}}>
                 {/* Combatant Header */}
-                <div className="w-full p-6 flex items-center justify-between">
+                <div className="w-full p-6 flex items-center justify-between"
+                     style={isOverLimit ? { backgroundColor: 'rgba(255, 0, 85, 0.05)' } : {}}>
                   <div className="flex items-center gap-4 flex-1">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
                          style={{ backgroundColor: 'rgba(157, 78, 221, 0.2)', border: '1px solid var(--accent-purple)' }}>
@@ -274,9 +244,20 @@ export default function Home() {
                           {combatantNames[index]} ✏️
                         </h3>
                       )}
-                      <p className="text-sm text-[var(--foreground-secondary)]">
-                        Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatantPoints}</span>
-                      </p>
+                      <div className="flex items-center gap-3 mt-1">
+                        <p className="text-sm text-[var(--foreground-secondary)]">
+                          Points: <span className={isOverLimit ? 'text-glow-pink' : ''} 
+                                       style={{ color: isOverLimit ? 'var(--error)' : 'var(--accent-cyan)' }}>
+                            {combatantPoints}
+                          </span> / {pointLimit}
+                        </p>
+                        {isOverLimit && (
+                          <span className="text-xs px-2 py-1 rounded" 
+                                style={{ backgroundColor: 'rgba(255, 0, 85, 0.2)', color: 'var(--error)' }}>
+                            ⚠️ OVER LIMIT
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </div>
                   <button
@@ -287,6 +268,17 @@ export default function Home() {
                     ▼
                   </button>
                 </div>
+
+                {/* Over Limit Warning */}
+                {isOverLimit && (
+                  <div className="px-6 pb-4">
+                    <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(255, 0, 85, 0.1)', border: '1px solid var(--error)' }}>
+                      <p className="text-center text-sm" style={{ color: 'var(--error)' }}>
+                        ⚠️ <strong>{displayName}</strong> is over limit by {combatantPoints - pointLimit} points! Random Faint Memory additions will be reverted until under the cap.
+                      </p>
+                    </div>
+                  </div>
+                )}
 
                 {/* Combatant Content */}
                 {isExpanded && (
