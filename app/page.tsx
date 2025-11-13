@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import NumberInput from './components/NumberInput';
+import { useState } from "react";
+import NumberInput from "./components/NumberInput";
 
 interface CombatantData {
   neutralCards: number;
@@ -33,12 +33,24 @@ export default function Home() {
     { ...initialCombatantData },
     { ...initialCombatantData },
   ]);
-  const [expandedCombatants, setExpandedCombatants] = useState<boolean[]>([true, false, false]);
-  const [combatantNames, setCombatantNames] = useState<string[]>(['Combatant 1', 'Combatant 2', 'Combatant 3']);
+  const [expandedCombatants, setExpandedCombatants] = useState<boolean[]>([
+    true,
+    false,
+    false,
+  ]);
+  const [combatantNames, setCombatantNames] = useState<string[]>([
+    "Combatant 1",
+    "Combatant 2",
+    "Combatant 3",
+  ]);
   const [editingName, setEditingName] = useState<number | null>(null);
 
   // Update combatant data
-  const updateCombatant = (index: number, field: keyof CombatantData, value: number) => {
+  const updateCombatant = (
+    index: number,
+    field: keyof CombatantData,
+    value: number
+  ) => {
     const newCombatants = [...combatants];
     newCombatants[index] = { ...newCombatants[index], [field]: value };
     setCombatants(newCombatants);
@@ -119,7 +131,7 @@ export default function Home() {
       { ...initialCombatantData },
     ]);
     setExpandedCombatants([true, false, false]);
-    setCombatantNames(['Combatant 1', 'Combatant 2', 'Combatant 3']);
+    setCombatantNames(["Combatant 1", "Combatant 2", "Combatant 3"]);
     setEditingName(null);
   };
 
@@ -137,7 +149,10 @@ export default function Home() {
                 <div className="text-xs sm:text-sm text-[var(--foreground-secondary)] mb-1">
                   Chaos Zero Nightmare
                 </div>
-                <h1 className="text-xl sm:text-2xl font-bold text-glow-cyan" style={{ color: 'var(--accent-cyan)' }}>
+                <h1
+                  className="text-xl sm:text-2xl font-bold text-glow-cyan"
+                  style={{ color: "var(--accent-cyan)" }}
+                >
                   Save Data Calculator
                 </h1>
               </div>
@@ -148,12 +163,14 @@ export default function Home() {
 
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
-        
         {/* Global Settings */}
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Tier Input */}
           <div className="gaming-card rounded-xl p-6">
-            <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--accent-cyan)' }}>
+            <h3
+              className="text-xl font-bold mb-4"
+              style={{ color: "var(--accent-cyan)" }}
+            >
               📊 Save Data Tier
             </h3>
             <div className="space-y-3">
@@ -168,14 +185,20 @@ export default function Home() {
                 large={true}
               />
               <p className="text-xs text-[var(--foreground-secondary)]">
-                Formula: 30 + 10(x-1) = <span style={{ color: 'var(--accent-cyan)' }}>{pointLimit} points</span>
+                Formula: 30 + 10(x-1) ={" "}
+                <span style={{ color: "var(--accent-cyan)" }}>
+                  {pointLimit} points
+                </span>
               </p>
             </div>
           </div>
 
           {/* Number of Combatants */}
           <div className="gaming-card rounded-xl p-6">
-            <h3 className="text-xl font-bold mb-4" style={{ color: 'var(--accent-purple)' }}>
+            <h3
+              className="text-xl font-bold mb-4"
+              style={{ color: "var(--accent-purple)" }}
+            >
               👥 Number of Combatants
             </h3>
             <div className="space-y-3">
@@ -203,28 +226,49 @@ export default function Home() {
             const isExpanded = expandedCombatants[index];
             const combatantPoints = calculateCombatantPoints(combatant);
             const isOverLimit = combatantPoints > pointLimit;
-            const displayName = combatantNames[index] === `Combatant ${index + 1}` ? `Combatant ${index + 1}` : combatantNames[index];
-            
+            const displayName =
+              combatantNames[index] === `Combatant ${index + 1}`
+                ? `Combatant ${index + 1}`
+                : combatantNames[index];
+
             return (
-              <div key={index} className={`gaming-card rounded-xl overflow-hidden ${isOverLimit ? 'border-2' : ''}`}
-                   style={isOverLimit ? { borderColor: 'var(--error)' } : {}}>
+              <div
+                key={index}
+                className={`gaming-card rounded-xl overflow-hidden ${
+                  isOverLimit ? "border-2" : ""
+                }`}
+                style={isOverLimit ? { borderColor: "var(--error)" } : {}}
+              >
                 {/* Combatant Header */}
-                <div className="w-full p-6 flex items-center justify-between"
-                     style={isOverLimit ? { backgroundColor: 'rgba(255, 0, 85, 0.05)' } : {}}>
-                  <div className="flex items-center gap-4 flex-1">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
-                         style={{ backgroundColor: 'rgba(157, 78, 221, 0.2)', border: '1px solid var(--accent-purple)' }}>
-                      {index === 0 ? '⚔️' : index === 1 ? '🛡️' : '🏹'}
+                <div
+                  className="w-full p-6 flex items-center justify-between"
+                  style={
+                    isOverLimit
+                      ? { backgroundColor: "rgba(255, 0, 85, 0.05)" }
+                      : {}
+                  }
+                >
+                  <div className="flex items-center gap-4 flex-1 min-w-0">
+                    <div
+                      className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl flex-shrink-0"
+                      style={{
+                        backgroundColor: "rgba(157, 78, 221, 0.2)",
+                        border: "1px solid var(--accent-purple)",
+                      }}
+                    >
+                      {index === 0 ? "⚔️" : index === 1 ? "🛡️" : "🏹"}
                     </div>
-                    <div className="text-left flex-1">
+                    <div className="flex-1 min-w-0">
                       {editingName === index ? (
                         <input
                           type="text"
                           value={combatantNames[index]}
-                          onChange={(e) => updateCombatantName(index, e.target.value)}
+                          onChange={(e) =>
+                            updateCombatantName(index, e.target.value)
+                          }
                           onBlur={() => setEditingName(null)}
                           onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
+                            if (e.key === "Enter") {
                               setEditingName(null);
                             }
                           }}
@@ -232,28 +276,43 @@ export default function Home() {
                           className="text-xl font-bold bg-[var(--background-secondary)] border-2 border-[var(--accent-purple)] rounded px-2 py-1 text-[var(--accent-purple)] focus:outline-none focus:border-[var(--accent-cyan)] w-full max-w-xs"
                         />
                       ) : (
-                        <h3 
-                          className="text-xl font-bold cursor-pointer hover:text-[var(--accent-cyan)] transition-colors"
-                          style={{ color: 'var(--accent-purple)' }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setEditingName(index);
-                          }}
+                        <div
+                          className="flex items-center gap-1 cursor-pointer hover:text-[var(--accent-cyan)] transition-colors max-w-full"
+                          onClick={() => setEditingName(index)}
                           title="Click to edit name"
                         >
-                          {combatantNames[index]} ✏️
-                        </h3>
+                          <h3
+                            className="text-xl font-bold truncate min-w-0"
+                            style={{ color: "var(--accent-purple)" }}
+                          >
+                            {combatantNames[index]}
+                          </h3>
+                          <span className="text-sm flex-shrink-0">✏️</span>
+                        </div>
                       )}
-                      <div className="flex items-center gap-3 mt-1">
+                      <div className="flex items-center gap-3 mt-1 flex-wrap">
                         <p className="text-sm text-[var(--foreground-secondary)]">
-                          Points: <span className={isOverLimit ? 'text-glow-pink' : ''} 
-                                       style={{ color: isOverLimit ? 'var(--error)' : 'var(--accent-cyan)' }}>
+                          Points:{" "}
+                          <span
+                            className={isOverLimit ? "text-glow-pink" : ""}
+                            style={{
+                              color: isOverLimit
+                                ? "var(--error)"
+                                : "var(--accent-cyan)",
+                            }}
+                          >
                             {combatantPoints}
-                          </span> / {pointLimit}
+                          </span>{" "}
+                          / {pointLimit}
                         </p>
                         {isOverLimit && (
-                          <span className="text-xs px-2 py-1 rounded" 
-                                style={{ backgroundColor: 'rgba(255, 0, 85, 0.2)', color: 'var(--error)' }}>
+                          <span
+                            className="text-xs px-2 py-1 rounded"
+                            style={{
+                              backgroundColor: "rgba(255, 0, 85, 0.2)",
+                              color: "var(--error)",
+                            }}
+                          >
                             ⚠️ OVER LIMIT
                           </span>
                         )}
@@ -262,19 +321,33 @@ export default function Home() {
                   </div>
                   <button
                     onClick={() => toggleCombatant(index)}
-                    className="text-2xl transition-transform hover:text-[var(--accent-cyan)] p-2"
-                    style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                    className="flex items-center justify-center w-12 h-12 rounded-lg hover:bg-[var(--card-hover)] transition-all cursor-pointer flex-shrink-0 ml-2"
+                    style={{
+                      transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
+                    }}
+                    title={isExpanded ? "Collapse" : "Expand"}
                   >
-                    ▼
+                    <span className="text-2xl">▼</span>
                   </button>
                 </div>
 
                 {/* Over Limit Warning */}
                 {isOverLimit && (
                   <div className="px-6 pb-4">
-                    <div className="p-3 rounded-lg" style={{ backgroundColor: 'rgba(255, 0, 85, 0.1)', border: '1px solid var(--error)' }}>
-                      <p className="text-center text-sm" style={{ color: 'var(--error)' }}>
-                        ⚠️ <strong>{displayName}</strong> is over limit by {combatantPoints - pointLimit} points! Random Faint Memory additions will be reverted until under the cap.
+                    <div
+                      className="p-3 rounded-lg"
+                      style={{
+                        backgroundColor: "rgba(255, 0, 85, 0.1)",
+                        border: "1px solid var(--error)",
+                      }}
+                    >
+                      <p
+                        className="text-center text-sm"
+                        style={{ color: "var(--error)" }}
+                      >
+                        ⚠️ <strong>{displayName}</strong> is over limit by{" "}
+                        {combatantPoints - pointLimit} points! Random Faint
+                        Memory additions will be reverted until under the cap.
                       </p>
                     </div>
                   </div>
@@ -288,7 +361,10 @@ export default function Home() {
                       <div className="space-y-6">
                         {/* Cards Section */}
                         <div>
-                          <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--accent-purple)' }}>
+                          <h4
+                            className="text-lg font-bold mb-4"
+                            style={{ color: "var(--accent-purple)" }}
+                          >
                             🃏 Common Cards
                           </h4>
                           <div className="space-y-4">
@@ -298,12 +374,17 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.neutralCards}
-                                onChange={(val) => updateCombatant(index, 'neutralCards', val)}
+                                onChange={(val) =>
+                                  updateCombatant(index, "neutralCards", val)
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.neutralCards * 20}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {combatant.neutralCards * 20}
+                                </span>
                               </p>
                             </div>
                             <div>
@@ -312,12 +393,17 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.monsterCards}
-                                onChange={(val) => updateCombatant(index, 'monsterCards', val)}
+                                onChange={(val) =>
+                                  updateCombatant(index, "monsterCards", val)
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.monsterCards * 80}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {combatant.monsterCards * 80}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -325,7 +411,10 @@ export default function Home() {
 
                         {/* Epiphanies Section */}
                         <div>
-                          <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--accent-pink)' }}>
+                          <h4
+                            className="text-lg font-bold mb-4"
+                            style={{ color: "var(--accent-pink)" }}
+                          >
                             ✨ Epiphanies
                           </h4>
                           <div className="space-y-4">
@@ -335,12 +424,21 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.commonEpiphanies}
-                                onChange={(val) => updateCombatant(index, 'commonEpiphanies', val)}
+                                onChange={(val) =>
+                                  updateCombatant(
+                                    index,
+                                    "commonEpiphanies",
+                                    val
+                                  )
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.commonEpiphanies * 10}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {combatant.commonEpiphanies * 10}
+                                </span>
                               </p>
                             </div>
                             <div>
@@ -349,12 +447,21 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.divineEpiphanies}
-                                onChange={(val) => updateCombatant(index, 'divineEpiphanies', val)}
+                                onChange={(val) =>
+                                  updateCombatant(
+                                    index,
+                                    "divineEpiphanies",
+                                    val
+                                  )
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.divineEpiphanies * 20}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {combatant.divineEpiphanies * 20}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -365,7 +472,10 @@ export default function Home() {
                       <div className="space-y-6">
                         {/* Card Removals */}
                         <div>
-                          <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--accent-green)' }}>
+                          <h4
+                            className="text-lg font-bold mb-4"
+                            style={{ color: "var(--accent-green)" }}
+                          >
                             🗑️ Card Removals
                           </h4>
                           <div className="space-y-4">
@@ -375,12 +485,17 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.cardRemovals}
-                                onChange={(val) => updateCombatant(index, 'cardRemovals', val)}
+                                onChange={(val) =>
+                                  updateCombatant(index, "cardRemovals", val)
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{calculateRemovalCost(combatant.cardRemovals)}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {calculateRemovalCost(combatant.cardRemovals)}
+                                </span>
                               </p>
                             </div>
                             <div>
@@ -389,12 +504,21 @@ export default function Home() {
                               </label>
                               <NumberInput
                                 value={combatant.characterCardRemovals}
-                                onChange={(val) => updateCombatant(index, 'characterCardRemovals', val)}
+                                onChange={(val) =>
+                                  updateCombatant(
+                                    index,
+                                    "characterCardRemovals",
+                                    val
+                                  )
+                                }
                                 min={0}
                                 max={999}
                               />
                               <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                                Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.characterCardRemovals * 20}</span>
+                                Points:{" "}
+                                <span style={{ color: "var(--accent-cyan)" }}>
+                                  {combatant.characterCardRemovals * 20}
+                                </span>
                               </p>
                             </div>
                           </div>
@@ -402,7 +526,10 @@ export default function Home() {
 
                         {/* Card Duplications */}
                         <div>
-                          <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--accent-orange)' }}>
+                          <h4
+                            className="text-lg font-bold mb-4"
+                            style={{ color: "var(--accent-orange)" }}
+                          >
                             📑 Card Duplications
                           </h4>
                           <div>
@@ -411,19 +538,29 @@ export default function Home() {
                             </label>
                             <NumberInput
                               value={combatant.cardDuplications}
-                              onChange={(val) => updateCombatant(index, 'cardDuplications', val)}
+                              onChange={(val) =>
+                                updateCombatant(index, "cardDuplications", val)
+                              }
                               min={0}
                               max={999}
                             />
                             <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                              Points: <span style={{ color: 'var(--accent-cyan)' }}>{calculateDuplicationCost(combatant.cardDuplications)}</span>
+                              Points:{" "}
+                              <span style={{ color: "var(--accent-cyan)" }}>
+                                {calculateDuplicationCost(
+                                  combatant.cardDuplications
+                                )}
+                              </span>
                             </p>
                           </div>
                         </div>
 
                         {/* Card Conversions */}
                         <div>
-                          <h4 className="text-lg font-bold mb-4" style={{ color: 'var(--accent-purple)' }}>
+                          <h4
+                            className="text-lg font-bold mb-4"
+                            style={{ color: "var(--accent-purple)" }}
+                          >
                             🔄 Card Conversions
                           </h4>
                           <div>
@@ -432,12 +569,17 @@ export default function Home() {
                             </label>
                             <NumberInput
                               value={combatant.cardConversions}
-                              onChange={(val) => updateCombatant(index, 'cardConversions', val)}
+                              onChange={(val) =>
+                                updateCombatant(index, "cardConversions", val)
+                              }
                               min={0}
                               max={999}
                             />
                             <p className="text-xs text-[var(--foreground-secondary)] mt-1">
-                              Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatant.cardConversions * 10}</span>
+                              Points:{" "}
+                              <span style={{ color: "var(--accent-cyan)" }}>
+                                {combatant.cardConversions * 10}
+                              </span>
                             </p>
                           </div>
                         </div>
@@ -452,23 +594,38 @@ export default function Home() {
 
         {/* Reset Button */}
         <div className="mt-6">
-          <button
-            onClick={resetAll}
-            className="w-full btn-secondary"
-          >
+          <button onClick={resetAll} className="w-full btn-secondary">
             🔄 Reset All
           </button>
         </div>
 
         {/* Info Section */}
         <div className="gaming-card rounded-xl p-6 mt-6">
-          <h3 className="text-lg font-bold mb-3" style={{ color: 'var(--accent-cyan)' }}>
+          <h3
+            className="text-lg font-bold mb-3"
+            style={{ color: "var(--accent-cyan)" }}
+          >
             ℹ️ Save Data Rules
           </h3>
           <div className="space-y-2 text-sm text-[var(--foreground-secondary)]">
-            <p><strong style={{ color: 'var(--accent-green)' }}>Vivid Memories (Always Saved):</strong> Equipment, character card epiphanies, and Unique cards</p>
-            <p><strong style={{ color: 'var(--accent-purple)' }}>Faint Memories (May Not Save):</strong> Common cards, their epiphanies, Divine epiphanies, and card operations</p>
-            <p><strong style={{ color: 'var(--accent-pink)' }}>Note:</strong> If point limit is exceeded, Faint Memory additions are reverted at random until under the cap</p>
+            <p>
+              <strong style={{ color: "var(--accent-green)" }}>
+                Vivid Memories (Always Saved):
+              </strong>{" "}
+              Equipment, character card epiphanies, and Unique cards
+            </p>
+            <p>
+              <strong style={{ color: "var(--accent-purple)" }}>
+                Faint Memories (May Not Save):
+              </strong>{" "}
+              Common cards, their epiphanies, Divine epiphanies, and card
+              operations
+            </p>
+            <p>
+              <strong style={{ color: "var(--accent-pink)" }}>Note:</strong> If
+              point limit is exceeded, Faint Memory additions are reverted at
+              random until under the cap
+            </p>
           </div>
         </div>
       </main>
@@ -477,7 +634,12 @@ export default function Home() {
       <footer className="border-t border-[#2a2a3e] mt-8">
         <div className="container mx-auto px-4 sm:px-6 py-6">
           <div className="text-center text-[var(--foreground-secondary)] text-sm">
-            <p className="mb-1"><strong style={{ color: 'var(--accent-cyan)' }}>Chaos Zero Nightmare</strong> - Save Data Calculator</p>
+            <p className="mb-1">
+              <strong style={{ color: "var(--accent-cyan)" }}>
+                Chaos Zero Nightmare
+              </strong>{" "}
+              - Save Data Calculator
+            </p>
             <p>Calculate your Faint Memory points</p>
           </div>
         </div>
