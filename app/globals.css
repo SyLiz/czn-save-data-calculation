@@ -1,8 +1,31 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Gaming Dark Theme Colors */
+  --background: #0a0a0f;
+  --background-secondary: #13131f;
+  --background-tertiary: #1a1a2e;
+  --foreground: #e8e8f0;
+  --foreground-secondary: #a8a8b8;
+  
+  /* Accent Colors - Neon Gaming Palette */
+  --accent-cyan: #00f0ff;
+  --accent-purple: #9d4edd;
+  --accent-pink: #ff006e;
+  --accent-green: #00ff88;
+  --accent-orange: #ff9e00;
+  
+  /* UI Element Colors */
+  --border: #2a2a3e;
+  --border-hover: #3d3d5c;
+  --card-bg: #16162a;
+  --card-hover: #1d1d35;
+  
+  /* Status Colors */
+  --success: #00ff88;
+  --warning: #ffb800;
+  --error: #ff0055;
+  --info: #00d4ff;
 }
 
 @theme inline {
@@ -10,17 +33,261 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  
+  /* Custom Gaming Colors */
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-green: var(--accent-green);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+}
+
+/* Gaming Theme Utilities */
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+}
+
+.glow-pink {
+  box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
+.text-glow-cyan {
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.8);
+}
+
+.text-glow-purple {
+  text-shadow: 0 0 10px rgba(157, 78, 221, 0.8);
+}
+
+.text-glow-pink {
+  text-shadow: 0 0 10px rgba(255, 0, 110, 0.8);
+}
+
+/* Gradient Backgrounds */
+.gradient-gaming {
+  background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-cyan) 100%);
+}
+
+.gradient-gaming-radial {
+  background: radial-gradient(circle at top left, rgba(157, 78, 221, 0.15), transparent 50%),
+              radial-gradient(circle at bottom right, rgba(0, 240, 255, 0.15), transparent 50%);
+}
+
+/* Animated Gradient Border */
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: var(--accent-cyan);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+  }
+  33% {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 20px rgba(157, 78, 221, 0.5);
+  }
+  66% {
+    border-color: var(--accent-pink);
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+  }
+}
+
+.border-glow-animated {
+  animation: borderGlow 3s ease-in-out infinite;
+}
+
+/* Card Styles */
+.gaming-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.gaming-card:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* Button Styles */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--accent-cyan);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: 2px solid var(--accent-cyan);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: var(--accent-cyan);
+  color: var(--background);
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-purple);
+  border-radius: 6px;
+  border: 2px solid var(--background-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* Selection Styling */
+::selection {
+  background: var(--accent-cyan);
+  color: var(--background);
+}
+
+::-moz-selection {
+  background: var(--accent-cyan);
+  color: var(--background);
+}
+
+/* Custom Number Input Styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.quantity {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.quantity input {
+  width: 100%;
+  height: 42px;
+  line-height: 1.65;
+  display: block;
+  padding: 0 40px 0 16px;
+  margin: 0;
+  border: 1px solid var(--border);
+  background: var(--background-secondary);
+  color: var(--foreground);
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  transition: border-color 0.3s ease;
+}
+
+.quantity input:focus {
+  outline: 0;
+  border-color: var(--accent-cyan);
+}
+
+.quantity-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 42px;
+  width: 32px;
+}
+
+.quantity-button {
+  position: absolute;
+  cursor: pointer;
+  border: none;
+  border-left: 1px solid var(--border);
+  width: 32px;
+  text-align: center;
+  color: var(--foreground);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  background: var(--background-tertiary);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quantity-button:hover {
+  background: var(--accent-cyan);
+  color: var(--background);
+}
+
+.quantity-button:active {
+  background: var(--accent-purple);
+}
+
+.quantity-button.quantity-up {
+  height: 50%;
+  top: 0;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 0.5rem 0 0;
+}
+
+.quantity-button.quantity-down {
+  bottom: 0;
+  height: 50%;
+  border-radius: 0 0 0.5rem 0;
+}
+
+/* Tier input larger size */
+.quantity.large input {
+  height: 50px;
+  font-size: 1.125rem;
+  font-weight: bold;
+  padding: 0 48px 0 16px;
+}
+
+.quantity.large .quantity-nav {
+  height: 50px;
+  width: 40px;
+}
+
+.quantity.large .quantity-button {
+  width: 40px;
+  font-size: 18px;
 }
