@@ -481,7 +481,7 @@ export default function Home() {
                           <div className="space-y-4">
                             <div>
                               <label className="block text-sm text-[var(--foreground-secondary)] mb-2">
-                                Common Card Removals (0/10/30/50/70)
+                                Removal Count (0/10/30/50/70)
                               </label>
                               <NumberInput
                                 value={combatant.cardRemovals}
