@@ -34,6 +34,8 @@ export default function Home() {
     { ...initialCombatantData },
   ]);
   const [expandedCombatants, setExpandedCombatants] = useState<boolean[]>([true, false, false]);
+  const [combatantNames, setCombatantNames] = useState<string[]>(['Combatant 1', 'Combatant 2', 'Combatant 3']);
+  const [editingName, setEditingName] = useState<number | null>(null);
 
   // Update combatant data
   const updateCombatant = (index: number, field: keyof CombatantData, value: number) => {
@@ -47,6 +49,13 @@ export default function Home() {
     const newExpanded = [...expandedCombatants];
     newExpanded[index] = !newExpanded[index];
     setExpandedCombatants(newExpanded);
+  };
+
+  // Update combatant name
+  const updateCombatantName = (index: number, name: string) => {
+    const newNames = [...combatantNames];
+    newNames[index] = name;
+    setCombatantNames(newNames);
   };
 
   // Calculate point limit based on tier
@@ -110,6 +119,8 @@ export default function Home() {
       { ...initialCombatantData },
     ]);
     setExpandedCombatants([true, false, false]);
+    setCombatantNames(['Combatant 1', 'Combatant 2', 'Combatant 3']);
+    setEditingName(null);
   };
 
   return (
@@ -229,28 +240,53 @@ export default function Home() {
             return (
               <div key={index} className="gaming-card rounded-xl overflow-hidden">
                 {/* Combatant Header */}
-                <button
-                  onClick={() => toggleCombatant(index)}
-                  className="w-full p-6 flex items-center justify-between hover:bg-[var(--card-hover)] transition-colors"
-                >
-                  <div className="flex items-center gap-4">
+                <div className="w-full p-6 flex items-center justify-between">
+                  <div className="flex items-center gap-4 flex-1">
                     <div className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl"
                          style={{ backgroundColor: 'rgba(157, 78, 221, 0.2)', border: '1px solid var(--accent-purple)' }}>
                       {index === 0 ? '⚔️' : index === 1 ? '🛡️' : '🏹'}
                     </div>
-                    <div className="text-left">
-                      <h3 className="text-xl font-bold" style={{ color: 'var(--accent-purple)' }}>
-                        Combatant {index + 1}
-                      </h3>
+                    <div className="text-left flex-1">
+                      {editingName === index ? (
+                        <input
+                          type="text"
+                          value={combatantNames[index]}
+                          onChange={(e) => updateCombatantName(index, e.target.value)}
+                          onBlur={() => setEditingName(null)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              setEditingName(null);
+                            }
+                          }}
+                          autoFocus
+                          className="text-xl font-bold bg-[var(--background-secondary)] border-2 border-[var(--accent-purple)] rounded px-2 py-1 text-[var(--accent-purple)] focus:outline-none focus:border-[var(--accent-cyan)] w-full max-w-xs"
+                        />
+                      ) : (
+                        <h3 
+                          className="text-xl font-bold cursor-pointer hover:text-[var(--accent-cyan)] transition-colors"
+                          style={{ color: 'var(--accent-purple)' }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setEditingName(index);
+                          }}
+                          title="Click to edit name"
+                        >
+                          {combatantNames[index]} ✏️
+                        </h3>
+                      )}
                       <p className="text-sm text-[var(--foreground-secondary)]">
                         Points: <span style={{ color: 'var(--accent-cyan)' }}>{combatantPoints}</span>
                       </p>
                     </div>
                   </div>
-                  <div className="text-2xl transition-transform" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                  <button
+                    onClick={() => toggleCombatant(index)}
+                    className="text-2xl transition-transform hover:text-[var(--accent-cyan)] p-2"
+                    style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                  >
                     ▼
-                  </div>
-                </button>
+                  </button>
+                </div>
 
                 {/* Combatant Content */}
                 {isExpanded && (
